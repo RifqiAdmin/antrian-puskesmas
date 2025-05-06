@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Loket</title>
+</head>
+<body>
+  <h1>Loket Panggilan</h1>
+  <button onclick="panggil(1)">Panggil Loket 1</button>
+  <button onclick="panggil(2)">Panggil Loket 2</button>
+  <button onclick="panggil(3)">Panggil Loket 3</button>
+  <script>
+    function panggil(loket) {
+      fetch('http://localhost:3000/panggil', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ loket })
+      })
+      .then(res => res.json())
+      .then(data => {
+        alert(`Memanggil nomor ${data.nomor} ke Loket ${loket}`);
+      })
+      .catch(() => alert("Tidak ada antrian."));
+    }
+  </script>
+</body>
+</html>

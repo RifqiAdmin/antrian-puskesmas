@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Layar Antrian</title>
+</head>
+<body>
+  <h1 id="judul">Antrian Puskesmas Cimahi Tengah</h1>
+  <div id="antrian">Menunggu...</div>
+  <script>
+    function update() {
+      fetch('http://localhost:3000/antrian')
+        .then(res => res.json())
+        .then(data => {
+          let terakhir = data.antrian.filter(a => a.dipanggil).slice(-1)[0];
+          if (terakhir) {
+            document.getElementById('antrian').innerText =
+              `Nomor ${terakhir.nomor} ke Loket ${terakhir.loket}`;
+          }
+        });
+    }
+    setInterval(update, 1000);
+  </script>
+</body>
+</html>
